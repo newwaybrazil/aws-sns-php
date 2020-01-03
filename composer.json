@@ -1,5 +1,5 @@
 {
-    "name": "brunoesposito/aws-sns-php",
+    "name": "newwaybrazil/aws-sns-php",
     "description": "PHP library to manage Amazon sns",
     "version": "1.0.0",
     "type": "library",
@@ -15,8 +15,8 @@
     },
     "authors": [
         {
-            "name": "Bruno Aurichio Esposito",
-            "email": "brunoaesposito@gmail.com"
+            "name": "New Way Brazil",
+            "email": "contato@gruponewway.com.br"
         }
     ],
     "autoload": {
