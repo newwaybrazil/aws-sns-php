@@ -62,43 +62,6 @@ class AwsSnsTest extends TestCase
         $this->assertEquals(true, $sendMessage);
     }
 
-    /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     * @covers \AwsSns\AwsSns::sendMessage
-     */
-    public function testSendMessageException()
-    {
-        $config = ['version' => 'latest'];
-        $defaultSMSType = 'Transactional';
-        $message = 'Test';
-        $phone = '551199999999';
-
-        $snsClient = Mockery::mock('overload:'.SnsClient::class)
-            ->shouldReceive('SetSMSAttributes')
-            ->with([
-                'attributes' => [
-                    'DefaultSMSType' => $defaultSMSType,
-                ],
-            ])
-            ->once()
-            ->andThrow(new Exception('err', 500))
-            ->shouldReceive('publish')
-            ->with([
-                'Message' => $message,
-                'PhoneNumber' => $phone,
-            ])
-            ->never()
-            ->andReturnSelf()
-            ->getMock();
-
-        $awsSns = new AwsSns($config);
-
-        $sendMessage = $awsSns->sendMessage($message, $phone);
-
-        $this->assertEquals(false, $sendMessage);
-    }
-
     public function tearDown()
     {
         Mockery::close();

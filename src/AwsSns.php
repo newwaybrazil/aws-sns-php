@@ -3,7 +3,6 @@
 namespace AwsSns;
 
 use Aws\Sns\SnsClient;
-use Exception;
 
 class AwsSns
 {
@@ -21,23 +20,19 @@ class AwsSns
         string $phone,
         string $defaultSMSType = 'Transactional'
     ): bool {
-        try {
-            $this->snSclient->SetSMSAttributes([
-                'attributes' => [
-                    'DefaultSMSType' => $defaultSMSType,
-                ],
-            ]);
+        $this->snSclient->SetSMSAttributes([
+            'attributes' => [
+                'DefaultSMSType' => $defaultSMSType,
+            ],
+        ]);
 
-            $publish = [
-                'Message' => $message,
-                'PhoneNumber' => $phone,
-            ];
+        $publish = [
+            'Message' => $message,
+            'PhoneNumber' => $phone,
+        ];
 
-            $this->snSclient->publish($publish);
+        $this->snSclient->publish($publish);
 
-            return true;
-        } catch (Exception $e) {
-            return false;
-        }
+        return true;
     }
 }
